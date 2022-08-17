@@ -1,0 +1,95 @@
+    <% content_for :title, "Home || SHOPPING APP" %>
+    <!-------- carousel-section --------->
+    <section>
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <%= image_tag "carousal-image.jpg", class:"d-block w-100", alt:"..." %>
+          </div>
+          <div class="carousel-item">
+            <%= image_tag "carousal-image.jpg", class:"d-block w-100", alt:"..." %>
+          </div>
+          <div class="carousel-item">
+            <%= image_tag "carousal-image.jpg", class:"d-block w-100", alt:"..." %>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </section>
+    <!-------- carousel-section-ended --------->
+  
+  <!------ Product Details------->
+
+  <section class="my-5 hover-heading-box">
+    <div class="container">
+      <div class="heading-box float-color">
+        <h4 class="font-weight-bold mb-0 ms-4">Available Products</h4>
+        <h6 class="mb-0 ms-4">Sub heading </h6>
+      </div>
+        <div class="product-card">
+      <div class="container">
+        <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+        <% @products.each do |product| %>
+          <%= form_with modle: product, url: lineitems_path, method: :post do |form| %>
+            <%= form.hidden_field :product_id, value: product.id %>
+            <%= form.hidden_field :price, value: product.price %>
+            <div class="col">
+              <div class="card h-100">
+                <%= image_tag "product-img.jpg", class:"card-img-top", alt:"..." %>
+                <div class="card-body">
+                  <h5 class="card-title text-white"><a href="/home/<%= product.id %>" class="text-decoration-none text-white"><%= product.title%></a><span class="float-end text-muted"><%= number_to_currency(product.price) %></span></h5>
+                  <hr>
+                  <p class="card-text text-white"><%= product.description.truncate(40) %></p>
+                </div>
+                <div class="card-footer">
+                  <% @order = current_user.orders.last %>
+                    <% if @order  &&  @order.cart? %>
+                      <% if current_user.orders.last.lineitems.where(product_id: product.id).empty? %>
+                        <div class="row">
+                          <div class="col-9">
+                            <%= form.submit "Add to cart", class:"btn btn-theme-blue rounded-0" %>
+                          </div>
+                          <div class="col-3">
+                            <%= form.number_field :quantity , value: 0 , min: 1, class:"float-end form-control rounded-0"  %>
+                          </div>
+                        </div>
+                      <% else %>
+                        <div class="col-9">
+                          <%= link_to  "Go to cart", lineitems_path , class:"btn btn-theme-blue rounded-0" %>
+                        </div>
+                      <% end %>
+                    <% else %>
+                      <div class="row">
+                        <div class="col-9">
+                          <%= form.submit "Add to cart", class:"btn btn-theme-blue rounded-0" %>
+                        </div>
+                        <div class="col-3">
+                          <%= form.number_field :quantity , value: 0 , min: 1, class:"float-end form-control rounded-0"  %>
+                        </div>
+                      </div>
+                    <% end %>
+
+                </div>
+              </div>
+            </div>
+            <%end%>
+        <% end %>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  </section>
+  <!------ Product Details Ended------->

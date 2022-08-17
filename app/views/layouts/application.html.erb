@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title><%= yield(:title) %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "style", "data-turbo-track": "reload" %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+  </head>
+
+  <body>
+    <!-- Header -->
+  <header>
+    
+    <div class="container-fluid p-0">
+      <div class="row justify-content-between py-2">
+        <div class="col-md-8 order-md-last">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center">
+                    <a class="navbar-brand m-0 text-uppercase" href="index.html"> <img src="#" class="d-block logo" alt=""><span class="text-white">LOGO</span></a>
+                </div>
+                <div class="col-md-6 nav-option d-md-flex justify-content-end mb-md-0 mb-3">
+                    <ul class="list-unstyled m-0">
+                      
+                      <!-- Dynamic buttons -->
+                      <% if user_signed_in? %>
+                        <li class="d-inline-block position-relative px-2"><%= button_to destroy_user_session_path ,method: :delete, class:"btn btn-theme-blue rounded-0" do%>
+                          <span>Log Out <i class="fa-solid fa-power-off text-white"></i></span>
+                        </li>
+                        <% end %>
+                      <% elsif request.original_url == 'http://127.0.0.1:3000/users/sign_in' %>
+                        <li class="d-inline-block position-relative px-2"><%= button_to new_user_registration_path ,method: :get,  class:"btn btn-theme-blue rounded-0" do %>
+                          <span>Sing Up <i class="fas fa-user text-white"></i></span>
+                        </li>
+                        <% end %>
+                      <% else %>
+                        <li class="d-inline-block position-relative px-2"><%= button_to user_session_path ,method: :post,  class:"btn btn-theme-blue rounded-0" do%>
+                          <span>Sing In <i class="fas fa-user text-white"></i></span>
+                        </li>
+                        <% end %>
+                      <% end %>
+                      <!-- Dynamic buttons -->
+
+                        <li class="d-inline-block position-relative px-2 me-3"><a  href="/lineitems"><i class="fa-solid fa-cart-shopping text-white"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 d-flex align-items-center justify-content-center">
+            <ul class="list-unstyled social-icons m-0 list-inline">
+                <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+                <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+            </ul>
+        </div>
+      </div>
+      
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav m-auto">
+              <li class="nav-item text-white"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+              <li class="nav-item text-white"><a class="nav-link" href="#">Products</a></li>
+              <li class="nav-item text-white"><a class="nav-link" href="#">Orders</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+  </header>
+  <!-- Header Ended -->
+    <div class="container">
+      <%= yield %>
+    </div>
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p class="text-center p-3 m-0">All rights reseved by &#169;abc 2022  </p>
+    </div>
+  </footer>
+  <!-- Footer Ended -->
+  </body>
+</html>

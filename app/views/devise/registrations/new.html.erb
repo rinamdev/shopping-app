@@ -1,0 +1,58 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+  <div class="row g-3">
+    <div class="col-md-6">
+      <%= f.label :name, "Full Name", class:"form-label text-white" %>
+      <%= f.text_field :name,class:"form-control rounded-0" %>
+    </div>
+    <div class="col-md-6">
+      <%= f.label :email,"Email", class:"form-label text-white" %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control rounded-0" %>
+    </div>
+    <div class="col-md-6">
+      <%= f.label :password, "Password", class:"form-label text-white" %>
+      <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %>
+      <%= f.password_field :password, autocomplete: "new-password", class:"form-control rounded-0" %>
+    </div>
+    <div class="col-md-6">
+      <%= f.label :password_confirmation,"Confirm Password", class:"form-label text-white" %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control rounded-0" %>
+    </div>
+    <div class="col-12">
+      <%= f.label :address_1, "Address", class:"form-label text-white" %>
+      <%= f.text_field :address_1,class:"form-control rounded-0", placeholder:"1234 Main St" %>
+    </div>
+    <div class="col-12">
+      <%= f.label :address_2,"Address", class:"form-label text-white" %>
+      <%= f.text_field :address_2,class:"form-control rounded-0", placeholder:"Apartment, studio, or floor" %>
+    </div>
+    <div class="col-md-6">
+      <%= f.label :city,"City", class:"form-label text-white" %>
+      <%= f.text_field :city,class:"form-control rounded-0" %>
+    </div>
+    <div class="col-md-4">
+      <%= f.label :state,"State", class:"form-label text-white" %>
+      <%= f.text_field :state,class:"form-control rounded-0" %>
+    </div>
+    <div class="col-md-2">
+      <%= f.label :postal_code,"Postal Code", class:"form-label text-white" %>
+      <%= f.text_field :postal_code,class:"form-control rounded-0" %>
+    </div>
+    <div class="col-12">
+      <div class="form-check">
+        <%= f.check_box :role,class:"form-check-input rounded-" %>
+        <%= f.label :role,"Are you Seller", class: "form-check-label text-white" %>
+      </div>
+    </div>
+    <div class="actions col-12">
+      <%= f.submit "Sign up", class:"btn btn-theme-blue rounded-0" %>
+      <button type="button" class="btn btn-theme-blue rounded-0"><%= render "devise/shared/links" %></button>
+    </div>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links", class:"btn btn-theme-blue rounded-0" %>

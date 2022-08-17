@@ -1,0 +1,20 @@
+<% content_for :title, "Payment || SHOPPING APP" %>
+
+<% if @order != nil %>
+  <section class="vh-100 my-5">
+  <%= form_with model: @order, url: '/place_order', method: :patch  do |form| %>
+    <div class="row">
+      <div class="col-6">
+        <%= form.hidden_field :id, value: @order.id %>
+        <%= form.label :payment_mode, "Payment Mode", class: "form-label text-white" %>
+        <%= form.select :payment_mode, ["Cash on dilevery", "Card"], class:"form-control rounded-0" %>
+      </div>
+      <div class="col-12">
+        <%= form.submit "Sumit", class:"btn btn-theme-blue rounded-0" %>
+      </div>
+    </div>
+  <% end %>
+  </section>
+<% else %>
+  <h1 class="text-white text-center mt-4" > Sorry! No Such Order... </h1>
+<% end %>

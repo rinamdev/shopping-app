@@ -1,0 +1,58 @@
+<% content_for :title, "Order Details || SHOPPING APP" %>
+
+<% if @lineitems %>
+  <section class="vh-100">
+    <div class="container">
+      <div class="px-3">
+        <div class="py-4 px-2">
+          <h5 class="mb-0 border-bottom pb-2 text-white">Order Details</h5>
+          <div class="pb-2">
+            <table class="table table-hover table-dark">
+              <thead>
+                <tr class="text-white">
+                  <th scope="col">#</th>
+                  <th scope="col">Product Name</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quntity</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Payment Mode</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @lineitems.each do |lineitem| %>
+                <% @product = Product.find(lineitem.product_id) %>
+                <%= form_with modle: lineitem, url: lineitem_path(lineitem), method: :patch do |form| %>
+                  <%= form.hidden_field :product_id, value: @product.id %>
+                    <tr class="text-white">
+                      <td></td>
+                      <td><%= @product.title %></td>
+                      <td><%= lineitem.price %></td>
+                      <td><%= lineitem.quantity%></td>
+                      <td><%= @order.status%></td>
+                      <td><%= @order.payment_mode%></td>
+                    </tr>
+                  <% end %>
+                <% end %>
+              </tbody>
+              <tfoot>
+                <tr class="text-white">
+                  <td>Total</td>
+                  <td></td>
+                  <td><%= @order.total_price %></td>
+                  <td><%= @order.total_quantity%></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+      <%= link_to  "Back", root_path , class:"btn btn-theme-blue rounded-0 mt-3" %>
+    </div>
+  </section>
+<% else %>
+  <section class="vh-100">
+    <h1 class="text-white text-center mt-5" > Cart is empty yet! </h1>
+  </section>
+<% end %>

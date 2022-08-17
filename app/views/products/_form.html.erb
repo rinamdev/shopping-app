@@ -1,0 +1,30 @@
+
+  <%= form_with model: @product, class:"row g-3" do |f| %>
+    <div class="col-md-6">
+      <%= f.label :title, "Product Name", class: "form-label text-white" %>
+      <%= f.text_field :title, class:"form-control rounded-0" %>
+    </div>
+    <div class="col-md-6">
+      <%= f.label :sub_title, "Sub Title", class: "form-label text-white" %>
+      <%= f.text_field :sub_title, class:"form-control rounded-0" %>
+    </div>
+    <div class="form-floating">
+      <%= f.text_field :description, for:"floatingTextarea2", style:"height: 100px", class:"form-control rounded-0" %>
+      <%= f.label :description, "Description", id:"floatingTextarea2" %>
+    </div>
+    <div class="col-md-6">
+      <%= f.label :price, "Price:", for:"inputPrice", class:"form-label text-white" %>
+      <%= f.text_field :price, class:"form-control rounded-0", id:"inputPrice" %>
+    </div>
+    <div class="col-md-6">
+      <%= f.label :rating, "Rating", for:"inputRating", class:"form-label text-white"%>
+      <%= f.select :rating, [1,2,3,4,5], id:"inputRating", class:"form-select rounded-0" %>
+    </div>
+    <div class="col-md-6">
+      <%= f.label :product_image, "Products Image", class:"form-label text-white"%>
+      <%= f.file_field :product_image,  class:"rounded-0" %>
+    </div>
+    <div class="col-12">
+      <%= f.submit "Submit",type:"submit", class: "btn btn-primary rounded-0" %>
+    </div>
+  <% end %>

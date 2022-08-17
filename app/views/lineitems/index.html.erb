@@ -1,0 +1,48 @@
+<% content_for :title, "Cart || SHOPPING APP" %>
+
+<% if @lineitems %>
+  <section class="vh-100">
+    <div class="container">
+      <div class="px-3">
+        <div class="py-4 px-2">
+          <h5 class="mb-0 border-bottom pb-2 text-white">Line Item</h5>
+          <div class="pb-2">
+            <table class="table">
+              <thead>
+                <tr class="text-white">
+                  <th scope="col">#</th>
+                  <th scope="col">Product Name</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quntity</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @lineitems.each do |lineitem| %>
+                <% @product = Product.find(lineitem.product_id) %>
+                <%= form_with modle: lineitem, url: lineitem_path(lineitem), method: :patch do |form| %>
+                  <%= form.hidden_field :product_id, value: @product.id %>
+                    <tr class="text-white">
+                      <td>1</td>
+                      <td><%= @product.title %></td>
+                      <td><%= lineitem.price %></td>
+                      <td><%= form.number_field :quantity , value: lineitem.quantity , min: 1, class:"float-end form-control rounded-0"  %></td>
+                      <td><%= link_to "Delete Product", lineitem_path(lineitem),method: :delete , data: {turbo_method: :delete,turbo_confirm: "Are you sure?" }, class:"btn-link"%></td>
+                      <td><%= form.submit "Update Order", class:"btn btn-primary rounded-0" %></td>
+                    </tr>
+                  <% end %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <%= link_to  "Place Order", payment_path , class:"btn btn-primary rounded-0 mt-3" %>
+    </div>
+  </section>
+<% else %>
+  <section class="vh-100">
+    <h1 class="text-white text-center mt-5" > Cart is empty yet! </h1>
+  </section>
+<% end %>
